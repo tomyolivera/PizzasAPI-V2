@@ -11,28 +11,27 @@ namespace PizzasAPI.Controllers
     public class PizzaController : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetAll(){
+        public IActionResult GetAll()
+        {
             List<Pizza> ListaPizzas = PizzaService.GetAll();
             return Ok(ListaPizzas);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id){
+        public IActionResult GetById(int id)
+        {
             Pizza Pizza = PizzaService.GetById(id);
 
             if(Pizza == null)
-            {
                 return NotFound();
-            }
 
             return Ok(Pizza);
         }
 
         [HttpPost]
-        public IActionResult Create(Pizza Pizza){
-            string headerToken = Request.Headers["token"];
-
-            if(!Helper.IsValidToken(headerToken))
+        public IActionResult Create(Pizza Pizza)
+        {
+            if(!Helper.IsValidToken(Request.Headers["token"]))
                 return Unauthorized();
 
             PizzaService.Insert(Pizza);
@@ -40,10 +39,9 @@ namespace PizzasAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Pizza Pizza){
-            string headerToken = Request.Headers["token"];
-            
-            if(!Helper.IsValidToken(headerToken))
+        public IActionResult Update(int id, Pizza Pizza)
+        {
+            if(!Helper.IsValidToken(Request.Headers["token"]))
                 return Unauthorized();
 
             if(Pizza.Id != id)
@@ -61,10 +59,9 @@ namespace PizzasAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteById(int id){
-            string headerToken = Request.Headers["token"];
-            
-            if(!Helper.IsValidToken(headerToken))
+        public IActionResult DeleteById(int id)
+        {
+            if(!Helper.IsValidToken(Request.Headers["token"]))
                 return Unauthorized();
 
             Pizza Pizza = PizzaService.GetById(id);

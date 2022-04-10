@@ -21,11 +21,7 @@ namespace PizzasAPI.Services
 
         public static Pizza GetById(int id)
         {
-            Pizza Pizza;
-
-            Pizza = connection.QueryFirstOrDefault<Pizza>("SELECT * FROM Pizzas WHERE id = @id", new {id});
-
-            return Pizza;
+            return connection.QueryFirstOrDefault<Pizza>("SELECT * FROM Pizzas WHERE id = @id", new {id});
         }
 
         public static int Insert(Pizza Pizza)

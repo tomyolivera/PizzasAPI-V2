@@ -32,6 +32,11 @@ namespace PizzasAPI.Services
         public static Usuario GetByToken(string token)
         {
             Usuario Usuario = connection.QueryFirstOrDefault<Usuario>("SELECT * FROM Usuarios WHERE token = @token", new {token});
+            
+            if(Usuario != null)
+                if(Usuario.TokenExpirationDate < DateTime.Now)
+                    Usuario = null;
+
             return Usuario;
         }
 
